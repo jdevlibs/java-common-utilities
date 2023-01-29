@@ -509,7 +509,7 @@ public final class DateFormats {
 	private static Date toDate(LocalDate value) {
 		return Date.from(value.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 	}
-	
+
 	public static final class CustomDateFormat extends SimpleDateFormat {
 		private static final long serialVersionUID = 1L;
 		
