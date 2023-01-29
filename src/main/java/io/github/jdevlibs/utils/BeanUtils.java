@@ -35,10 +35,11 @@ public final class BeanUtils {
 
     /**
      * Copy collection of object to new collection object
-     * @param sources The List<T> of source objects
+     * @param sources The List of source objects
      * @param targetClass Target copy class
      * @param ignores Ignore properties for copy
      * @return Collection of copy object
+     * @param <T> Generic target class
      */
     public static  <T> List<T> copyProperties(List<?> sources, Class<T> targetClass, String... ignores) {
         if (Validators.isEmptyOne(sources, targetClass)) {
@@ -52,10 +53,11 @@ public final class BeanUtils {
 
     /**
      * Copy collection of object to new collection object
-     * @param sources The List<T> of source objects
+     * @param sources The List of source objects
      * @param targetClass Target copy class
      * @param options copy options
      * @return Collection of copy object
+     * @param <T> Generic target class
      */
     public static  <T> List<T> copyProperties(List<?> sources, Class<T> targetClass, CopyBeanOptions options) {
         if (Validators.isEmptyOne(sources, targetClass)) {
@@ -72,6 +74,7 @@ public final class BeanUtils {
      * @param targetClass Target copy class
      * @param ignores Ignore properties for copy
      * @return The target copy object
+     * @param <T> Generic target class
      */
     public static <T> T copyProperties(Object source, Class<T> targetClass, String... ignores) {
         CopyBeanOptions options = CopyBeanOptions.defaultOptions();
@@ -85,6 +88,7 @@ public final class BeanUtils {
      * @param targetClass Target copy class
      * @param options copy options
      * @return The target copy object
+     * @param <T> Generic target class
      */
     public static <T> T copyProperties(Object source, Class<T> targetClass, CopyBeanOptions options) {
         if (Validators.isNullOne(source, targetClass)) {

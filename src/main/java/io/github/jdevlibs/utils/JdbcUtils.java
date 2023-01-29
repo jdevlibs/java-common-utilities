@@ -285,9 +285,16 @@ public final class JdbcUtils {
 	}
 
 	/**
-	 * Convert ResultSet value to JDBC Type <br/>
-	 * Types.CLOB -> String<br/>
-	 * Types.BLOB -> byte[] array
+	 * Convert ResultSet value to JDBC Type
+	 * <pre>
+	 * Types.CLOB to String
+	 * Types.BLOB to byte[] array
+	 * </pre>
+	 * @param rs JDBC ResultSet
+	 * @param colName The column name
+	 * @param type The column type
+	 * @return Value of column
+	 * @throws SQLException When exception
 	 */
 	public static Object getResultSetValue(ResultSet rs, String colName, int type) throws SQLException {
 		Object obj;
@@ -323,9 +330,15 @@ public final class JdbcUtils {
 	}
 
 	/**
-	 * Convert ResultSet value to String <br/>
-	 * Types.CLOB -> String<br/>
-	 * Types.BLOB -> Base64 String
+	 * Convert ResultSet value to String
+	 * <pre>
+	 * Types.CLOB to String
+	 * Types.BLOB to Base64 String
+	 * </pre>
+	 * @param rs JDBC ResultSet
+	 * @param colName The column name
+	 * @param type The column type
+	 * @return Value of column
 	 */
 	public static String getResultValue(ResultSet rs, String colName, int type) {
 		String value = null;

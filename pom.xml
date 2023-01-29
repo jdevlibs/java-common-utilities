@@ -11,7 +11,7 @@
 	<packaging>jar</packaging>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>Java common utilities library.</description>
-	<url>https://github.com/cana-github/java-common-utils/</url>
+	<url>https://github.com/jdevlibs/java-common-utils/</url>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>

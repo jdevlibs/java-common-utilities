@@ -413,7 +413,7 @@ public final class Convertors {
 	}
 
 	/**
-	 * Format file size to user readable. (e.g. 1024 -> 1 KB)
+	 * Format file size to user readable. (e.g. 1024 to 1 KB)
 	 * @param size File size
 	 * @return The format of file size.
 	 */

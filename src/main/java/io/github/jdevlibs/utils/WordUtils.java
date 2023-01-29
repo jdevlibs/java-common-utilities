@@ -48,7 +48,7 @@ public final class WordUtils {
 	private static final String MASK 	= "000000000000";
 	
 	/**
-	 * Convert currency amount to Thai readable format <br/>
+	 * Convert currency amount to Thai readable format
 	 * @param value The currency amount (Set total scale with 2 position : 100.356 will be to 100.36)
 	 * @return The value after format to thai baht
 	 */
