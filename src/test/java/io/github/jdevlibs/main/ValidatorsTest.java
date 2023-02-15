@@ -14,5 +14,8 @@ public class ValidatorsTest {
         System.out.println("op : " + Validators.isEmpty(op));
         op = Optional.empty();
         System.out.println("op : " + Validators.isEmpty(op));
+
+        System.out.println("2570300022001 : " + Validators.isThaiCitizenId("2570300022001"));
+        System.out.println("2570300022002 : " + Validators.isThaiCitizenId("2570300022002"));
     }
 }

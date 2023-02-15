@@ -38,6 +38,7 @@ public final class Validators {
 	private static final Pattern PATTERN_NORMAL;
 	private static final Pattern PATTERN_RFC5322;
 	private static final Pattern PATTERN_UNICODE;
+	private static final Pattern PATTERN_THAI_ID = Pattern.compile("^[0-9]{13}$");
 
 	static {
 		PATTERN_NORMAL = Pattern.compile(EMAIL_NORMAL);
@@ -311,7 +312,65 @@ public final class Validators {
 	public static boolean isClassString(Class<?> clazz) {
 		return (clazz == String.class);
 	}
-	
+
+	/**
+	 * Validate thai citizen id format
+	 * <pre>
+	 * หลักที่ 1 หมายถึงประเภทบุคคลซึ่งมี 8 ประเภท
+	 * หลักที่ 2 ถึงหลักที่ 5 หมายถึงรหัสของสำนักทะเบียนที่ท่านมีชื่อในทะเบียนบ้าน
+	 * โดยหลักที่ 2 และ 3 หมายถึงจังหวัด หลักที่ 4 และ 5 หมายถึงอำเภอ หรือเทศบาล
+	 * หลักที่ 6 ถึงหลักที่ 10 หมายถึงกลุ่มที่ของบุคคลแต่ละประเภทตามหลักแรก
+	 * หลักที่ 11 และ 12 หมายถึงลำดับที่ของบุคคลในแต่ละกลุ่มประเภท
+	 * หลักที่ 13 คือ ตัวเลขตรวจสอบความถูกต้องของเลข 12 หลักแรก
+	 *
+	 * สูตรการ Gen เลขบัตรประชาชน
+	 * 1. คูณตัวเลขในแต่ละหลัก
+	 *      byte1 * 13
+	 *      byte2 * 12
+	 *      byte3 * 11
+	 *      byte4 * 10
+	 *      byte5 * 9
+	 *      byte6 * 8
+	 *      byte7 * 7
+	 *      byte8 * 6
+	 *      byte9 * 5
+	 *      byte10 * 4
+	 *      byte11 * 3
+	 *      byte12 * 2
+	 * 2. รวมยอดทั้งหมดที่คูณกันในแต่ละหลัก
+	 * 3. นำผลลัพท์ข้อที่ 2 MOD 11
+	 * 4. นำผลลัพท์ข้อที่ 3 มา ลบ 11
+	 * 5. นำผลลัพท์ข้อที่ 4 มา Mod 10
+	 * 6. ถ้าผลลัพท์ตรงกับหลักสุดท้ายของเลขบัตร แสดงว่าบัตรถูกต้อง
+	 * </pre>
+	 * @link <a href="http://www.science.police.go.th/scddWeb/main/menu-c01.php"> Thai Citizen Id</a>
+	 * @param citizenId The thai citizen id
+	 * @return True when valid format
+	 */
+	public static boolean isThaiCitizenId(String citizenId) {
+		if (Validators.isEmpty(citizenId) || citizenId.trim().length() != 13
+				|| !PATTERN_THAI_ID.matcher(citizenId).matches()) {
+			return false;
+		}
+
+		char[] chars = citizenId.toCharArray();
+		if (chars[0] == '0') {
+			return false;
+		}
+
+		int sum = 0;
+		for (int i = 0; i < 12; i++) {
+			sum += Character.digit(chars[i], 10) * (13 - i);
+		}
+
+		int checkSum = Character.digit(chars[12], 10);
+		return checkSum == ((11 - (sum % 11)) % 10);
+	}
+
+	public static boolean isNotThaiCitizenId(String citizenId) {
+		return !isThaiCitizenId(citizenId);
+	}
+
 	private static BigDecimal toBigDecimal(Number value) {
 		if (value instanceof BigDecimal) {
 			return (BigDecimal) value;
