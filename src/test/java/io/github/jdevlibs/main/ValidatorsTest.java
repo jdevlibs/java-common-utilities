@@ -17,5 +17,7 @@ public class ValidatorsTest {
 
         System.out.println("2570300022001 : " + Validators.isThaiCitizenId("2570300022001"));
         System.out.println("2570300022002 : " + Validators.isThaiCitizenId("2570300022002"));
+        System.out.println("21344 : " + Validators.isThaiCitizenId("21344"));
+        System.out.println("A570300022002 : " + Validators.isThaiCitizenId("A570300022002"));
     }
 }

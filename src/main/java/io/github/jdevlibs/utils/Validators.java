@@ -343,8 +343,7 @@ public final class Validators {
 	 * 5. นำผลลัพท์ข้อที่ 4 มา Mod 10
 	 * 6. ถ้าผลลัพท์ตรงกับหลักสุดท้ายของเลขบัตร แสดงว่าบัตรถูกต้อง
 	 * </pre>
-	 * @link <a href="http://www.science.police.go.th/scddWeb/main/menu-c01.php"> Thai Citizen Id</a>
-	 * @param citizenId The thai citizen id
+	 * @param citizenId The thai citizen ID
 	 * @return True when valid format
 	 */
 	public static boolean isThaiCitizenId(String citizenId) {
