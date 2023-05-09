@@ -27,17 +27,17 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
-* Generic object converter
-* @author supot
-* @version 1.0
-*/
+ * Generic object converter
+ * @author supot
+ * @version 1.0
+ */
 public final class Convertors {
 	private static final String BYTE 	= " bytes";
 	private static final String KB 		= " KB";
 	private static final String MB 		= " MB";
 	private static final String GB 		= " GB";
 	private static final String TB 		= " TB";
-	
+
 	private static final String FILE_ZERO_SIZE = "0 Bytes";
 	private static final DecimalFormat DFM = new DecimalFormat("#,##0");
 
@@ -53,7 +53,7 @@ public final class Convertors {
 	}
 
 	/**
-	 * Convert input value to boolean [0=true, 1=false], ['true', 'false'], If value cannot convert return default value.
+	 * Convert input value to boolean [1=true, 0=false], ['true', 'false'], If value cannot convert return default value.
 	 * @param value The value
 	 * @param defValue Default value when cannot convert.
 	 * @return The convert value
@@ -70,7 +70,7 @@ public final class Convertors {
 		if (number == null) {
 			return defValue;
 		}
-		return (number.intValue() == 0 ? Boolean.TRUE : Boolean.FALSE);
+		return (number.intValue() == 1 ? Boolean.TRUE : Boolean.FALSE);
 	}
 
 	/**
@@ -96,12 +96,12 @@ public final class Convertors {
 			if (value instanceof String) {
 				return Byte.valueOf((String) value);
 			}
-			
+
 			Number number = toNumber(value);
 			if (number == null) {
 				return defValue;
 			}
-			
+
 			return number.byteValue();
 		} catch (NumberFormatException ex) {
 			return defValue;
@@ -131,12 +131,12 @@ public final class Convertors {
 			if (value instanceof String) {
 				return Short.valueOf((String) value);
 			}
-			
+
 			Number number = toNumber(value);
 			if (number == null) {
 				return defValue;
 			}
-			
+
 			return number.shortValue();
 		} catch (NumberFormatException ex) {
 			return defValue;
@@ -166,12 +166,12 @@ public final class Convertors {
 			if (value instanceof String) {
 				return Integer.valueOf((String) value);
 			}
-			
+
 			Number number = toNumber(value);
 			if (number == null) {
 				return defValue;
 			}
-			
+
 			return number.intValue();
 		} catch (NumberFormatException ex) {
 			return defValue;
@@ -201,12 +201,12 @@ public final class Convertors {
 			if (value instanceof String) {
 				return Long.valueOf((String) value);
 			}
-			
+
 			Number number = toNumber(value);
 			if (number == null) {
 				return defValue;
 			}
-			
+
 			return number.longValue();
 		} catch (NumberFormatException ex) {
 			return defValue;
@@ -236,12 +236,12 @@ public final class Convertors {
 			if (value instanceof String) {
 				return Double.valueOf((String) value);
 			}
-			
+
 			Number number = toNumber(value);
 			if (number == null) {
 				return defValue;
 			}
-			
+
 			return number.doubleValue();
 		} catch (NumberFormatException ex) {
 			return defValue;
@@ -271,12 +271,12 @@ public final class Convertors {
 			if (value instanceof String) {
 				return Float.valueOf((String) value);
 			}
-			
+
 			Number number = toNumber(value);
 			if (number == null) {
 				return defValue;
 			}
-			
+
 			return number.floatValue();
 		} catch (NumberFormatException ex) {
 			return defValue;
@@ -374,7 +374,7 @@ public final class Convertors {
 			byte[] data = (byte[]) value;
 			return new String(data, StandardCharsets.UTF_8);
 		}
-		
+
 		return value != null ? value.toString() : defValue;
 	}
 
@@ -401,7 +401,7 @@ public final class Convertors {
 			if (value instanceof byte[]) {
 				return (byte[]) value;
 			}
-			
+
 			String strValue = toString(value);
 			if (strValue == null) {
 				return defValue;
@@ -421,7 +421,7 @@ public final class Convertors {
 		if (Validators.isNull(size)) {
 			return FILE_ZERO_SIZE;
 		}
-		
+
 		long value = size.longValue();
 
 		if (value < Values.ONE_KB) {
@@ -502,7 +502,7 @@ public final class Convertors {
 		if (value instanceof Number) {
 			return (Number) value;
 		}
-		
+
 		return null;
 	}
 }
