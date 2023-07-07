@@ -315,12 +315,11 @@ public final class FileUtils {
 		return true;
 	}
 	
-	public static void forceDelete(File file) {
+	public static boolean forceDelete(File file) {
 		if (file.isDirectory()) {
-			deleteDirectory(file, false);
-			return;
+			return deleteDirectory(file, false);
 		}
-		boolean delete = file.delete();
+		return file.delete();
 	}
 	
 	public static void writeByteArrayToFile(File file, byte[] data) throws IOException {
@@ -359,5 +358,29 @@ public final class FileUtils {
 		}
 
 		return new FileOutputStream(file, append);
+	}
+
+	public static String getTempDir() {
+		return System.getProperty("java.io.tmpdir");
+	}
+
+	public static File createTempDir(String dirName) {
+		File tmpDir = new File(new File(getTempDir()), dirName);
+		if (!tmpDir.exists()) {
+			boolean success = tmpDir.mkdirs();
+			return (success ? tmpDir : null);
+		}
+
+		return tmpDir;
+	}
+
+	public static String createTempDirPath(String dirName) {
+		File tmpDir = new File(new File(getTempDir()), dirName);
+		if (!tmpDir.exists()) {
+			boolean success = tmpDir.mkdirs();
+			return (success ? tmpDir.getAbsolutePath() : null);
+		}
+
+		return tmpDir.getAbsolutePath();
 	}
 }
