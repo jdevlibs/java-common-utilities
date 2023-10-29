@@ -692,10 +692,6 @@ public final class JdbcUtils {
 	}
 
 	public static String escapeChar(String value) {
-		for (String str : ESC_CHARS) {
-			value = value.replaceAll(str, "!" + str);
-		}
-
 		return value;
 	}
 
