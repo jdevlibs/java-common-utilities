@@ -308,7 +308,7 @@ public final class Calculators {
 	}
 
 	/**
-	 * The class holding calculation of VAT
+	 * The class-holding calculation of VAT
 	 * @author Supot Sealao
 	 */
 	public static class VatAmount {

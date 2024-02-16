@@ -21,6 +21,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.nio.file.FileSystems;
 import java.util.Map;
 
 /**
@@ -30,9 +31,9 @@ import java.util.Map;
  * @version 1.0
  */
 public final class Systems {
-	private static final String LINE_SEPARATOR = System.getProperty("line.separator");
-	private static final String FILE_SEPARATOR = System.getProperty("file.separator");
-	private static final String PATH_SEPARATOR = System.getProperty("path.separator");
+	private static final String LINE_SEPARATOR = System.lineSeparator();
+	private static final String FILE_SEPARATOR = FileSystems.getDefault().getSeparator();
+	private static final String PATH_SEPARATOR = File.pathSeparator;
 	private static final String USER_HOME = System.getProperty("user.home");
 	private static final String USER_DIR = System.getProperty("user.dir");
 	private static final String JAVA_IO_TMPDIR = System.getProperty("java.io.tmpdir");
@@ -43,8 +44,20 @@ public final class Systems {
 	private static final char WIN_SEPARATOR = '\\';
 	private static final char SYS_SEPARATOR = File.separatorChar;
 	private static final long MB = (1024L * 1024L);
+	private static final String UTF8 = "UTF-8";
 
 	private Systems() {
+	}
+
+	public static void initial() {
+		setDefaultProperties();
+	}
+
+	public static void setDefaultProperties() {
+		System.setProperty("file.encoding", UTF8);
+		System.setProperty("sun.jnu.encoding", UTF8);
+		System.setProperty("sun.stdout.encoding", UTF8);
+		System.setProperty("sun.stderr.encoding", UTF8);
 	}
 
 	public static String getLineSeparator() {

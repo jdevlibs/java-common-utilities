@@ -34,11 +34,11 @@ public final class BeanUtils {
     }
 
     /**
-     * Copy collection of object to new collection object
+     * Copy a collection of objects to a new collection object
      * @param sources The List of source objects
      * @param targetClass Target copy class
      * @param ignores Ignore properties for copy
-     * @return Collection of copy object
+     * @return Collection of copy objects
      * @param <T> Generic target class
      */
     public static  <T> List<T> copyProperties(List<?> sources, Class<T> targetClass, String... ignores) {
@@ -52,11 +52,11 @@ public final class BeanUtils {
     }
 
     /**
-     * Copy collection of object to new collection object
+     * Copy a collection of objects to a new collection object
      * @param sources The List of source objects
      * @param targetClass Target copy class
      * @param options copy options
-     * @return Collection of copy object
+     * @return Collection of copy objects
      * @param <T> Generic target class
      */
     public static  <T> List<T> copyProperties(List<?> sources, Class<T> targetClass, CopyBeanOptions options) {
