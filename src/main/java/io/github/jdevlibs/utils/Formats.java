@@ -51,19 +51,41 @@ public final class Formats {
 			return "";
 		}
 	}
-	
-	public static String decimal(Number value) {
+
+	public static String withoutRound(Object value) {
+		try {
+			if (value == null) {
+				return "";
+			}
+
+			if (!(value instanceof Number)) {
+				return value.toString();
+			}
+
+			double data = ((Number) value).doubleValue();
+			if (Math.abs(data) == data) {
+				return DF_NO_RD.format(data);
+			} else {
+				data *= -1;
+				return "-" + DF_NO_RD.format(data);
+			}
+		} catch (Exception ex) {
+			return "";
+		}
+	}
+
+	public static String decimal(Object value) {
 		try {
 			if (value == null) {
 				return null;
-			}			
-			return DFM.format(value.doubleValue());
+			}
+			return DFM.format(value);
 		} catch (Exception ex) {
 			return null;
 		}
 	}
 	
-	public static String number(Number value) {
+	public static String number(Object value) {
 		try {
 			if (value == null) {
 				return null;
