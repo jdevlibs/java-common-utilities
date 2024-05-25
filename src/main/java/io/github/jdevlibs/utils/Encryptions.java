@@ -58,6 +58,7 @@ public final class Encryptions {
 	 * Encryption value to MD5 algorithm
 	 * @param value Input value
 	 * @return The value encryption with MD5
+	 * @throws SystemException When exception
 	 */
     public static String md5(String value) throws SystemException {
         return md5(null, value);
@@ -68,6 +69,7 @@ public final class Encryptions {
 	 * @param hashKey Hash key for MD5
 	 * @param value Input value
 	 * @return The value encryption with MD5
+	 * @throws SystemException When exception
 	 */
     public static String md5(String hashKey, String value) throws SystemException {
         try {
@@ -101,6 +103,7 @@ public final class Encryptions {
 	 * Encryption File to MD5 algorithm
 	 * @param file Input file name
 	 * @return The file encryption with MD5
+	 * @throws SystemException When exception
 	 */
     public static String fileMD5(String file) throws SystemException {
         return fileMD5(new File(file));
@@ -110,6 +113,7 @@ public final class Encryptions {
 	 * Encryption File to MD5 algorithm
 	 * @param file Input file name
 	 * @return The file encryption with MD5
+	 * @throws SystemException When exception
 	 */
 	public static String fileMD5(File file) throws SystemException {
 
@@ -193,6 +197,7 @@ public final class Encryptions {
 	 * Encryption data with AES algorithm using a default secret key
 	 * @param data Input data value
 	 * @return The value of encryption
+	 * @throws SystemException When exception
 	 */
 	public static String encryptAES(String data) throws SystemException {
 		return encryptAES(data, SECRET_KEY);
@@ -203,6 +208,7 @@ public final class Encryptions {
 	 * @param data Input data value
 	 * @param secret Secret key
 	 * @return The value of encryption
+	 * @throws SystemException When exception
 	 */
 	public static String encryptAES(String data, String secret) throws SystemException {
 		try {
@@ -221,6 +227,7 @@ public final class Encryptions {
 	 * Decryption data with AES algorithm using a default secret key
 	 * @param data Input encryption value
 	 * @return The value of decryption
+	 * @throws SystemException When exception
 	 */
 	public static String decryptAES(String data) throws SystemException {
 		return decryptAES(data, SECRET_KEY);
@@ -231,6 +238,7 @@ public final class Encryptions {
 	 * @param data Input encryption value
 	 * @param secret Secret key
 	 * @return The value of decryption
+	 * @throws SystemException When exception
 	 */
 	public static String decryptAES(String data, String secret) throws SystemException {
 		try {
@@ -250,6 +258,7 @@ public final class Encryptions {
 	/**
 	 * Generate KeyPairValue with a public/private key
 	 * @return The KeyPairValue object
+	 * @throws SystemException When exception
 	 */
 	public static KeyPairValue generateKeyPair() throws SystemException {
 		try {
@@ -272,6 +281,7 @@ public final class Encryptions {
 	 * @param message Input message value
 	 * @param publicKeyValue The public key
 	 * @return The value of encryption
+	 * @throws SystemException When exception
 	 */
 	public static String encryptRSA(String message, String publicKeyValue) throws SystemException {
 		try {
@@ -294,6 +304,7 @@ public final class Encryptions {
 	 * @param message Input encryption message
 	 * @param privateKeyValue The private key
 	 * @return The value of decryption
+	 * @throws SystemException When exception
 	 */
 	public static String decryptRSA(String message, String privateKeyValue) throws SystemException {
 		try {
