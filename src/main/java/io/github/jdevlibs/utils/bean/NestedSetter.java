@@ -48,7 +48,7 @@ public class NestedSetter {
     }
 
     /**
-     * Set value to target object (if system cannot set value don't throw exception)
+     * Set value to a target object (if a system cannot set value don't throw exception)
      * @param target The target object
      * @param value The value
      */
@@ -57,7 +57,7 @@ public class NestedSetter {
     }
 
     /**
-     * Set value to target object
+     * Set value to a target object
      * @param target The target object
      * @param value The value
      * @param throwException throw exception (true throw exception, false don't throw exception when error)

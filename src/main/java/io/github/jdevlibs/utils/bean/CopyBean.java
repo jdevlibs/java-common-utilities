@@ -32,11 +32,22 @@ import java.util.Objects;
  * @version 1.0
  */
 public class CopyBean<T> {
-    private final Class<T> clazz;
     private final CopyBeanOptions options;
     private List<Field> targetFields;
     private Map<String, Field> sourceFields;
     private String sourceClass;
+    private Class<T> clazz;
+
+    public CopyBean() {
+        this.options = CopyBeanOptions.defaultOptions();
+    }
+
+    public CopyBean(CopyBeanOptions options) {
+        if (options == null) {
+            options = CopyBeanOptions.defaultOptions();
+        }
+        this.options = options;
+    }
 
     public CopyBean(Class<T> targetClass) {
         this.clazz = targetClass;
@@ -90,6 +101,25 @@ public class CopyBean<T> {
 
     private T copy(Object source) {
         T result = ClassUtils.newInstance(clazz);
+        copy(source, result);
+        return result;
+    }
+
+    public void copyProperties(Object source, Object target, String... ignores) {
+        this.initialTargetField(target);
+        if (Validators.isEmptyOne(source, target, targetFields)) {
+            return;
+        }
+
+        this.initialSourceFields(source, ignores);
+        if (Validators.isEmpty(sourceFields)) {
+            return;
+        }
+
+        copy(source, target);
+    }
+
+    private void copy(Object source, Object target) {
         for (Field field : targetFields) {
             Field sourceField = sourceFields.get(field.getName());
             if (sourceField == null) {
@@ -97,15 +127,20 @@ public class CopyBean<T> {
             }
             Object value = BeanUtils.getValue(source, sourceField);
             if (value != null) {
-                BeanUtils.setValue(result, field, value);
+                BeanUtils.setValue(target, field, value);
             }
         }
-        return result;
     }
 
     private void initialTargetField() {
         if (targetFields == null && clazz != null) {
             targetFields = ReflectionUtils.getDeclaredFields(clazz, options.getTargetIgnores());
+        }
+    }
+
+    private void initialTargetField(Object target) {
+        if (targetFields == null && target != null) {
+            targetFields = ReflectionUtils.getDeclaredFields(target.getClass(), options.getTargetIgnores());
         }
     }
 

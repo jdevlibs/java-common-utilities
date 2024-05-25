@@ -32,6 +32,16 @@ public class CopyBeanUtilsTest {
         System.out.println("+++++++++++++++ Copy to other +++++++++++++");
         Dog dog = BeanUtils.copyProperties(horse, Dog.class);
         System.out.println(dog);
+
+        System.out.println("+++++++++++++++ Copy to exist object +++++++++++++");
+        Horse horse1 = new Horse();
+        BeanUtils.copyProperties(horse, horse1);
+        System.out.println(horse1);
+
+        System.out.println("+++++++++++++++ Copy to exist object +++++++++++++");
+        horse1 = new Horse();
+        BeanUtils.copyProperties(horse, horse1, "price");
+        System.out.println(horse1);
     }
 
     private static void copyList() {

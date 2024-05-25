@@ -100,6 +100,33 @@ public final class BeanUtils {
     }
 
     /**
+     * Copy source object to a new target object
+     * @param source The source object
+     * @param target The target object
+     * @param ignores Ignore properties for copy
+     */
+    public static void copyProperties(Object source, Object target, String... ignores) {
+        CopyBeanOptions options = CopyBeanOptions.defaultOptions();
+        options.sourceIgnores(ignores);
+        copyProperties(source, target, options);
+    }
+
+    /**
+     * Copy source object to a new target object
+     * @param source The source object
+     * @param target The target object
+     * @param options copy options
+     */
+    public static void copyProperties(Object source, Object target, CopyBeanOptions options) {
+        if (Validators.isNullOne(source, target)) {
+            return;
+        }
+
+        CopyBean<?> copyBean = new CopyBean<>(options);
+        copyBean.copyProperties(source, target);
+    }
+
+    /**
      * Returns the value of a field on a bean.
      * @param bean The object to lookup value
      * @param field The field name of bean
