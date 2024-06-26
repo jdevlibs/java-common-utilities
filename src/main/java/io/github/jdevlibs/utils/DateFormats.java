@@ -43,13 +43,21 @@ public final class DateFormats {
 	private static final DateTimeFormatter TIME_FM = DateTimeFormatter.ofPattern("HH:mm:ss");
 
 	private static final DateTimeFormatter[] FMT_DATES = {
-			DateTimeFormatter.ofPattern(FM_DATE, Locale.US),
-			DateTimeFormatter.ofPattern(FM_DT_TIME, Locale.US),
+			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.US),
+			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS", Locale.US),
+			DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS", Locale.US),
 			DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss", Locale.US),
 			DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US),
+			DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.US),
 			DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US),
-			DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss.SSS'Z'", Locale.US),
+			DateTimeFormatter.ofPattern(FM_DATE, Locale.US),
+			DateTimeFormatter.ofPattern(FM_DT_TIME, Locale.US),
+			DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS", Locale.US),
+			DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSS'Z'", Locale.US),
+			DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss.SSSSSS", Locale.US),
 			DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss.SSS", Locale.US),
+			DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss.SSS'Z'", Locale.US),
+			DateTimeFormatter.ofPattern("dd/MM/yyyy'T'HH:mm:ss.SSSSSS", Locale.US),
 			DateTimeFormatter.ISO_LOCAL_DATE,
 			DateTimeFormatter.ISO_DATE,
 			DateTimeFormatter.ISO_OFFSET_DATE,
@@ -64,7 +72,9 @@ public final class DateFormats {
 	private static final DateTimeFormatter[] FMT_TIMES = {
 			DateTimeFormatter.ISO_LOCAL_TIME,
 			DateTimeFormatter.ISO_OFFSET_TIME,
-			DateTimeFormatter.ISO_TIME, TIME_FM};
+			DateTimeFormatter.ISO_TIME,
+			TIME_FM
+	};
 
 	private DateFormats() {
 	}
@@ -183,7 +193,7 @@ public final class DateFormats {
 	}
 
 	/**
-	 * Converts this input object to a Date. (using pattern dd/MM/yyyy)
+	 * Converts this input object to a Date. (using a pattern dd/MM/yyyy)
 	 * @param value The input value to convert.
 	 * @param locale The locale whose date format symbols should be used
 	 * @return Date, If program cannot convert return null
@@ -200,7 +210,9 @@ public final class DateFormats {
 	 * @return Date, If program cannot convert return null
 	 */
 	public static Date date(Object value, String pattern, Locale locale) {
-		if (isDateInstance(value)) {
+		if (value instanceof Timestamp) {
+			return new Date(((Timestamp) value).getTime());
+		} else if (isDateInstance(value)) {
 			return (Date) value;
 		} else if (value instanceof LocalDateTime) {
 			return toDate((LocalDateTime) value);
@@ -226,19 +238,6 @@ public final class DateFormats {
 	 */
 	public static String format(Date date) {
 		return format(date, FM_DATE, Locale.US);
-	}
-
-	/**
-	 * Formats a Date into a date/time string. (Using pattern dd/MM/yyyy, THAI locale)
-	 * @param date The Date value to be formatted into string.
-	 * @return The formatted time string., If program cannot convert return empty
-	 */
-	public static String formatThai(Date date) {
-		return format(date, FM_DATE, TH);
-	}
-
-	public static String formatThai(Date date, String pattern) {
-		return format(date, pattern, TH);
 	}
 
 	/**
@@ -273,25 +272,25 @@ public final class DateFormats {
 	}
 
 	/**
+	 * Formats a Date into a date/time string. (Using pattern dd/MM/yyyy, THAI locale)
+	 * @param date The Date value to be formatted into string.
+	 * @return The formatted time string., If program cannot convert return empty
+	 */
+	public static String formatThai(Date date) {
+		return format(date, FM_DATE, TH);
+	}
+
+	public static String formatThai(Date date, String pattern) {
+		return format(date, pattern, TH);
+	}
+
+	/**
 	 * Formats a LocalDate into a date string. (Using Locale.US, pattern dd/MM/yyyy)
 	 * @param date The LocalDate value to be formatted into string.
 	 * @return The formatted string., If program cannot convert return empty
 	 */
 	public static String format(LocalDate date) {
 		return format(date, FM_DATE, Locale.US);
-	}
-
-	/**
-	 * Formats a LocalDate into a date/time string. (Using pattern dd/MM/yyyy, THAI locale)
-	 * @param date The LocalDate value to be formatted into string.
-	 * @return The formatted time string., If program cannot convert return empty
-	 */
-	public static String formatThai(LocalDate date) {
-		return format(date, FM_DATE, TH);
-	}
-
-	public static String formatThai(LocalDate date, String pattern) {
-		return format(date, pattern, TH);
 	}
 
 	/**
@@ -305,7 +304,7 @@ public final class DateFormats {
 	}
 
 	/**
-	 * Formats a LocalDate into a date string. (Using pattern dd/MM/yyyy)
+	 * Formats a LocalDate into a date string. (Using a pattern dd/MM/yyyy)
 	 * @param date The LocalDate value to be formatted into string.
 	 * @param locale The locale whose date format symbols should be used
 	 * @return The formatted string., If program cannot convert return empty
@@ -337,25 +336,25 @@ public final class DateFormats {
 	}
 
 	/**
+	 * Formats a LocalDate into a date/time string. (Using pattern dd/MM/yyyy, THAI locale)
+	 * @param date The LocalDate value to be formatted into string.
+	 * @return The formatted time string., If program cannot convert return empty
+	 */
+	public static String formatThai(LocalDate date) {
+		return format(date, FM_DATE, TH);
+	}
+
+	public static String formatThai(LocalDate date, String pattern) {
+		return format(date, pattern, TH);
+	}
+
+	/**
 	 * Formats a LocalDateTime into a date string. (Using Locale.US, pattern dd/MM/yyyy HH:mm:ss)
 	 * @param date The LocalDateTime value to be formatted into string.
 	 * @return The formatted string., If program cannot convert return empty
 	 */
 	public static String format(LocalDateTime date) {
 		return format(date, FM_DT_TIME, Locale.US);
-	}
-
-	/**
-	 * Formats a LocalDateTime into a date/time string. (Using pattern dd/MM/yyyy, THAI locale)
-	 * @param date The LocalDate value to be formatted into string.
-	 * @return The formatted time string., If program cannot convert return empty
-	 */
-	public static String formatThai(LocalDateTime date) {
-		return format(date, FM_DT_TIME, TH);
-	}
-
-	public static String formatThai(LocalDateTime date, String pattern) {
-		return format(date, pattern, TH);
 	}
 
 	/**
@@ -399,6 +398,19 @@ public final class DateFormats {
 		} catch (Exception ex) {
 			return EMPTY;
 		}
+	}
+
+	/**
+	 * Formats a LocalDateTime into a date/time string. (Using pattern dd/MM/yyyy, THAI locale)
+	 * @param date The LocalDate value to be formatted into string.
+	 * @return The formatted time string., If program cannot convert return empty
+	 */
+	public static String formatThai(LocalDateTime date) {
+		return format(date, FM_DT_TIME, TH);
+	}
+
+	public static String formatThai(LocalDateTime date, String pattern) {
+		return format(date, pattern, TH);
 	}
 
 	/**
@@ -454,9 +466,13 @@ public final class DateFormats {
 	}
 
 	public static java.sql.Timestamp sqlTimestamp(Object value, String pattern, Locale locale) {
-		Date date = date(value, pattern, locale);
+		if (Validators.isEmpty(value)) {
+			return null;
+		}
+
+		LocalDateTime date = localDateTime(value, pattern);
 		if (date != null) {
-			return new java.sql.Timestamp(date.getTime());
+			return Timestamp.valueOf(date);
 		}
 		return null;
 	}
@@ -568,8 +584,6 @@ public final class DateFormats {
 	}
 
 	public static final class CustomDateFormat extends SimpleDateFormat {
-		private static final long serialVersionUID = 1L;
-
 		private final String pattern;
 
 		public CustomDateFormat(String pattern) {
