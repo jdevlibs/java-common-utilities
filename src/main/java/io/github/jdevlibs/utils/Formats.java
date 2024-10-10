@@ -26,7 +26,7 @@ import java.text.DecimalFormat;
 public final class Formats {
 	private static final DecimalFormat DFM = new DecimalFormat("#,##0.00");
 	private static final DecimalFormat DF_NO_RD = new DecimalFormat("#,##0.00");
-	private static final DecimalFormat NFM = new DecimalFormat("###0");
+	private static final DecimalFormat NFM = new DecimalFormat("#,##0");
 	
 	static {
 		DF_NO_RD.setRoundingMode(RoundingMode.FLOOR);
